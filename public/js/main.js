@@ -1,14 +1,20 @@
 //Time to load the image
 import SpriteSheet from './SpriteSheet.js';
-import {imageLoad} from './loaders.js';
+import {imageLoad, loadLevel} from './loaders.js';
 
-
+function drawbackground(background, context,sprites){
+    background.ranges.forEach(([x1,x2,y1,y2]) =>{
+        for (let x=x1;x<x2;++x){
+            for(let y=y1;y<y2;++y){
+                sprites.drawTile(background.tile, context, x,y)
+            }
+        }
+    });
+}
 
 
 const canvas = document.getElementById('screen');
 const context = canvas.getContext('2d');
-
-context.fillRect(0,0,50,50);
 
 imageLoad('/img/tiles.png')
 .then(image => {
@@ -16,9 +22,17 @@ imageLoad('/img/tiles.png')
     sprites.define('ground',0,0);
     sprites.define('sky', 3, 23)
 
+    loadLevel('1-1')
+        .then(level =>{
+            console.log(level)
+            drawbackground(level.backgrounds[0], context, sprites)
+        });
+
+    
+
     for (let x=0;x<25;++x){
-        for(let y=0;y<14;++y){
-            sprites.draw('sky', context, x*16,y*16)
+        for(let y=12;y<14;++y){
+            sprites.drawTile('ground', context, x,y)
         }
     }
     
