@@ -14,7 +14,14 @@ imageLoad('/img/tiles.png')
 .then(image => {
     const sprites = new SpriteSheet(image, 16, 16);
     sprites.define('ground',0,0);
-    sprites.draw('ground', context, 45,62)
+    sprites.define('sky', 3, 23)
+
+    for (let x=0;x<25;++x){
+        for(let y=0;y<14;++y){
+            sprites.draw('sky', context, x*16,y*16)
+        }
+    }
+    
     // context.drawImage(image,
     //     0,0,16,16, // first two define which tile up, last two define which time bottom (vertical vs horizontal)
     //     32,32,48,48, ) // first two define where you want to draw the image, last two define the size of the thing you're drawing
