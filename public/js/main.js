@@ -25,16 +25,13 @@ imageLoad('/img/tiles.png')
     loadLevel('1-1')
         .then(level =>{
             console.log(level)
-            drawbackground(level.backgrounds[0], context, sprites)
+            level.backgrounds.forEach(background => {
+            drawbackground(background, context, sprites)
         });
 
-    
+    });
 
-    for (let x=0;x<25;++x){
-        for(let y=12;y<14;++y){
-            sprites.drawTile('ground', context, x,y)
-        }
-    }
+    
     
     // context.drawImage(image,
     //     0,0,16,16, // first two define which tile up, last two define which time bottom (vertical vs horizontal)
